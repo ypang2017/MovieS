@@ -14,7 +14,7 @@ import java.io.IOException;
  */
 public class PageDownLoadUtil {
 
-  public String getPageContent(String url){
+  public static String getPageContent(String url){
     HttpClientBuilder builder = HttpClientBuilder.create();
     CloseableHttpClient client = builder.build();
     HttpGet request = new HttpGet(url);
