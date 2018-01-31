@@ -2,6 +2,7 @@ package com.movies.spider.service;
 
 import com.movies.spider.entity.Page;
 import com.movies.spider.service.impl.IProcessService;
+import com.movies.spider.utils.LoadPropertyUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -16,11 +17,13 @@ public class MovieOnProcessService implements IProcessService {
   public void process(Page page) {
 
     Document doc = Jsoup.parse(page.getContext());
+    LoadPropertyUtil elementUtil = new LoadPropertyUtil();
 
     //Selector, select feature information
-    Elements nameElement = doc.select("#content > h1:nth-child(2) > span:nth-child(1)");// name information
-    Elements scoreElement = doc.select("strong.ll");// score information
-    Elements numberElement = doc.select(".rating_people > span:nth-child(1)");// scorenumber information
+    Elements nameElement = doc.select(LoadPropertyUtil.getOnShow("nameElement"));// name information
+    Elements scoreElement = doc.select(LoadPropertyUtil.getOnShow("scoreElement"));// score information
+    Elements numberElement = doc.select(LoadPropertyUtil.getOnShow("numberElement"));// scorenumber information
+
 
     //parse the movie information from the page context
     String name = nameElement.text();
