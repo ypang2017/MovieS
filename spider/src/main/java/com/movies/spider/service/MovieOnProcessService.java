@@ -6,6 +6,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
+import java.sql.Date;
+
 /**
  * The showing movie content parse class
  */
@@ -25,9 +27,19 @@ public class MovieOnProcessService implements IProcessService {
     float score = Float.parseFloat(scoreElement.text());
     int number = Integer.parseInt(numberElement.text());
 
-    //set the movie information name,score,scorenumber
+    //set the movie information name,score,scorenumber,time
+    long processTime = System.currentTimeMillis();
+    Date processDate = new Date(processTime);
     page.setMovieName(name);
     page.setMovieScore(score);
     page.setScoreNum(number);
+    page.setExcuteTime(processTime);
+    page.setExcuteDay(processDate);
+
+    System.out.println("movie name:" + page.getMovieName());
+    System.out.println("movie score:" + page.getMovieScore());
+    System.out.println("score number:" + page.getScoreNum());
+    System.out.println("excute time:" + page.getExcuteTime());
+    System.out.println("excute date:" + page.getExcuteDay());
   }
 }

@@ -14,5 +14,7 @@ public class TestMovieOnProcessService {
     System.out.println(page.getMovieName());
     System.out.println(page.getMovieScore());
     System.out.println(page.getScoreNum());
+    System.out.println(page.getExcuteTime());
+    System.out.println(page.getExcuteDay());
   }
 }

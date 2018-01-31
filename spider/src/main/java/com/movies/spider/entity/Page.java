@@ -1,5 +1,7 @@
 package com.movies.spider.entity;
 
+import java.sql.Date;
+
 public class Page {
   private String context;//the url context about the movie;
   private String movieName;
@@ -7,7 +9,7 @@ public class Page {
   private int scoreNum;
   private int increaseNum;//everyday increase score number
   private long excuteTime;//spider excute time
-  private long excuteDay;//spider excute day
+  private Date excuteDay;//spider excute day
   private String url;
 
 
@@ -59,11 +61,11 @@ public class Page {
     this.excuteTime = excuteTime;
   }
 
-  public long getExcuteDay() {
+  public Date getExcuteDay() {
     return excuteDay;
   }
 
-  public void setExcuteDay(long excuteDay) {
+  public void setExcuteDay(Date excuteDay) {
     this.excuteDay = excuteDay;
   }
 
