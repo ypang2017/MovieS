@@ -1,6 +1,7 @@
 package com.movies.spider.start;
 
 import com.movies.spider.entity.Page;
+import com.movies.spider.service.ConsoleStoreService;
 import com.movies.spider.service.HttpClientDownLoadService;
 import com.movies.spider.service.MovieOnProcessService;
 
@@ -10,6 +11,7 @@ import com.movies.spider.service.MovieOnProcessService;
 public class StartOnShowSpider {
   private HttpClientDownLoadService downLoadService;
   private MovieOnProcessService processService;
+  private ConsoleStoreService storeService;
 
   public HttpClientDownLoadService getDownLoadService() {
     return downLoadService;
@@ -25,6 +27,14 @@ public class StartOnShowSpider {
 
   public void setProcessService(MovieOnProcessService processService) {
     this.processService = processService;
+  }
+
+  public ConsoleStoreService getStoreService() {
+    return storeService;
+  }
+
+  public void setStoreService(ConsoleStoreService storeService) {
+    this.storeService = storeService;
   }
 
   /**
@@ -48,21 +58,24 @@ public class StartOnShowSpider {
    * Page info store
    * @return
    */
-//  public void storePageInfo(Page page){
-//    this.storeService.store(page);
-//  }
+  public void storePageInfo(Page page){
+    this.storeService.store(page);
+  }
 
   public static void main(String[] args) {
     StartOnShowSpider start = new StartOnShowSpider();
     start.setDownLoadService(new HttpClientDownLoadService());
     start.setProcessService(new MovieOnProcessService());
+    start.storeService = new ConsoleStoreService();
 
     String url = "https://movie.douban.com/subject/26942674/?from=showing";
+
 
     //Page download
     Page page = start.downloadPage(url);
     //Page parse
     start.processPage(page);
-
+    //Page store
+    start.storePageInfo(page);
   }
 }

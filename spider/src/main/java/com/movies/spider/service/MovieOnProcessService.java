@@ -38,11 +38,6 @@ public class MovieOnProcessService implements IProcessService {
     page.setScoreNum(number);
     page.setExcuteTime(processTime);
     page.setExcuteDay(processDate);
-
-    System.out.println("movie name:" + page.getMovieName());
-    System.out.println("movie score:" + page.getMovieScore());
-    System.out.println("score number:" + page.getScoreNum());
-    System.out.println("excute time:" + page.getExcuteTime());
-    System.out.println("excute date:" + page.getExcuteDay());
+    page.setIncreaseNum(0);
   }
 }
