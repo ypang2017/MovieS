@@ -3,7 +3,7 @@ package com.movies.spider.entity;
 import java.sql.Date;
 
 public class Page {
-  private String context;//the url context about the movie;
+  private String content;//the url context about the movie;
   private String movieName;
   private float movieScore;
   private int scoreNum;
@@ -11,14 +11,14 @@ public class Page {
   private long excuteTime;//spider excute time
   private Date excuteDay;//spider excute day
   private String url;
+  private String movieId;
 
-
-  public String getContext() {
-    return context;
+  public String getContent() {
+    return content;
   }
 
-  public void setContext(String context) {
-    this.context = context;
+  public void setContent(String content) {
+    this.content = content;
   }
 
   public String getMovieName() {
@@ -75,5 +75,13 @@ public class Page {
 
   public void setUrl(String url) {
     this.url = url;
+  }
+
+  public String getMovieId() {
+    return movieId;
+  }
+
+  public void setMovieId(String movieId) {
+    this.movieId = movieId;
   }
 }

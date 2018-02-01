@@ -8,6 +8,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 import java.sql.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * The showing movie content parse class
@@ -16,7 +18,7 @@ public class MovieOnProcessService implements IProcessService {
 
   public void process(Page page) {
 
-    Document doc = Jsoup.parse(page.getContext());
+    Document doc = Jsoup.parse(page.getContent());
     LoadPropertyUtil elementUtil = new LoadPropertyUtil();
 
     //Selector, select feature information
@@ -39,5 +41,15 @@ public class MovieOnProcessService implements IProcessService {
     page.setExcuteTime(processTime);
     page.setExcuteDay(processDate);
     page.setIncreaseNum(0);
+
+    // set the movie id
+    Pattern pattern = Pattern.compile(LoadPropertyUtil.getOnShow("idRegex"));
+    Matcher matcher = pattern.matcher(page.getContent());
+    if (matcher.find()) {
+      page.setMovieId("OnShow_" + matcher.group(1).trim());
+    } else {
+      page.setMovieId("");
+    }
+
   }
 }

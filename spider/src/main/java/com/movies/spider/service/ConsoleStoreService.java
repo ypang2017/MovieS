@@ -14,5 +14,6 @@ public class ConsoleStoreService implements IStoreService {
     System.out.println(page.getIncreaseNum());
     System.out.println(page.getExcuteTime());
     System.out.println(page.getExcuteDay());
+    System.out.println(page.getMovieId());
   }
 }
