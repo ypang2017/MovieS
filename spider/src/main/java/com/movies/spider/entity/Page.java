@@ -1,6 +1,8 @@
 package com.movies.spider.entity;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Page {
   private String content;//the url context about the movie;
@@ -12,6 +14,7 @@ public class Page {
   private Date excuteDay;//spider excute day
   private String url;
   private String movieId;
+  private List<String> urlList = new ArrayList<String>();
 
   public String getContent() {
     return content;
@@ -83,5 +86,13 @@ public class Page {
 
   public void setMovieId(String movieId) {
     this.movieId = movieId;
+  }
+
+  public List<String> getUrlList() {
+    return urlList;
+  }
+
+  public void addUrl(String url) {
+    this.urlList.add(url);
   }
 }

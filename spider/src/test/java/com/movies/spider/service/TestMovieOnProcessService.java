@@ -8,7 +8,7 @@ public class TestMovieOnProcessService {
   @Test
   public void testProcess(){
     HttpClientDownLoadService downLoadService = new HttpClientDownLoadService();
-    Page page = downLoadService.downLoad("https://movie.douban.com/subject/26942674/?from=showing");
+    Page page = downLoadService.downLoad("https://movie.douban.com/");
     MovieOnProcessService movieOnProcessService = new MovieOnProcessService();
     movieOnProcessService.process(page);
     System.out.println(page.getMovieName());
@@ -16,5 +16,6 @@ public class TestMovieOnProcessService {
     System.out.println(page.getScoreNum());
     System.out.println(page.getExcuteTime());
     System.out.println(page.getExcuteDay());
+    System.out.println(page.getUrlList().toString());
   }
 }

@@ -2,8 +2,10 @@ package com.movies.spider.start;
 
 import com.movies.spider.entity.Page;
 import com.movies.spider.service.ConsoleStoreService;
+import com.movies.spider.service.HBaseStoreService;
 import com.movies.spider.service.HttpClientDownLoadService;
 import com.movies.spider.service.MovieOnProcessService;
+import com.movies.spider.service.impl.IStoreService;
 
 /**
  * This is an entrance of on show movies on Home Page
@@ -11,7 +13,7 @@ import com.movies.spider.service.MovieOnProcessService;
 public class StartOnShowSpider {
   private HttpClientDownLoadService downLoadService;
   private MovieOnProcessService processService;
-  private ConsoleStoreService storeService;
+  private IStoreService storeService;
 
   public HttpClientDownLoadService getDownLoadService() {
     return downLoadService;
@@ -29,11 +31,11 @@ public class StartOnShowSpider {
     this.processService = processService;
   }
 
-  public ConsoleStoreService getStoreService() {
+  public IStoreService getStoreService() {
     return storeService;
   }
 
-  public void setStoreService(ConsoleStoreService storeService) {
+  public void setStoreService(IStoreService storeService) {
     this.storeService = storeService;
   }
 
@@ -67,6 +69,7 @@ public class StartOnShowSpider {
     start.setDownLoadService(new HttpClientDownLoadService());
     start.setProcessService(new MovieOnProcessService());
     start.storeService = new ConsoleStoreService();
+//    start.storeService = new HBaseStoreService();
 
     String url = "https://movie.douban.com/subject/26942674/?from=showing";
 

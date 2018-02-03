@@ -252,7 +252,7 @@ public class HBaseUtil {
     try {
       Result result = table.get(get);
       KeyValue[] raw = result.raw();
-      if (raw.length == 8) {
+      if (raw.length == 7) {
         page = new Page();
         page.setMovieId(row);
         page.setMovieName(new String(raw[0].getValue()));
