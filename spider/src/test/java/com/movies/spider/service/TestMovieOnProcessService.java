@@ -17,5 +17,7 @@ public class TestMovieOnProcessService {
     System.out.println(page.getExcuteTime());
     System.out.println(page.getExcuteDay());
     System.out.println(page.getUrlList().toString());
+    System.out.println(page.getUrlList().size());
+//    System.out.println(page.getContent());
   }
 }
