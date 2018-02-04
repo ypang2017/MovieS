@@ -3,13 +3,13 @@ package com.movies.spider.service;
 import com.movies.spider.entity.Page;
 import com.movies.spider.service.impl.IProcessService;
 import com.movies.spider.utils.LoadPropertyUtil;
+import com.movies.spider.utils.RegexUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.sql.Date;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -28,13 +28,8 @@ public class MovieOnProcessService implements IProcessService {
         Elements tag = liTag.getElementsByClass("title");
         for (Element urls : tag) {
           Pattern pattern = Pattern.compile(LoadPropertyUtil.getOnShow("urlRegex"));
-          Matcher matcher = pattern.matcher(tag.toString());
-          if (matcher.find()) {
-            page.addUrl(matcher.group(0).trim() + "/?from=showing");
-          }
+          page.addUrl(RegexUtil.getPageInfoByRegex(urls.toString(), pattern, 0));
         }
-//        String test = tag.toString();
-//        page.addUrl(test);
       }
     } else {
       parseDetail(page, doc);
@@ -68,11 +63,6 @@ public class MovieOnProcessService implements IProcessService {
 
     // set the movie id
     Pattern pattern = Pattern.compile(LoadPropertyUtil.getOnShow("idRegex"));
-    Matcher matcher = pattern.matcher(page.getContent());
-    if (matcher.find()) {
-      page.setMovieId("OnShow_" + matcher.group(1).trim());
-    } else {
-      page.setMovieId("");
-    }
+    page.setMovieId("OnShow_" + RegexUtil.getPageInfoByRegex(page.getContent(), pattern, 1));
   }
 }
