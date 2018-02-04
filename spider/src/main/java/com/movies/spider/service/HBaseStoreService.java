@@ -7,7 +7,7 @@ import com.movies.spider.utils.HBaseUtil;
 import java.io.IOException;
 
 /**
- * Use the hbase to show the storage information
+ * Use hbase to show the storage information
  */
 public class HBaseStoreService implements IStoreService {
   HBaseUtil hbaseUtil = new HBaseUtil();
