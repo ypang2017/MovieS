@@ -44,12 +44,18 @@ public class MovieOnProcessService implements IProcessService {
     Elements nameElement = doc.select(LoadPropertyUtil.getOnShow("nameElement"));// name information
     Elements scoreElement = doc.select(LoadPropertyUtil.getOnShow("scoreElement"));// score information
     Elements numberElement = doc.select(LoadPropertyUtil.getOnShow("numberElement"));// scorenumber information
-
-
     //parse the movie information from the page context
     String name = nameElement.text();
-    float score = Float.parseFloat(scoreElement.text());
-    int number = Integer.parseInt(numberElement.text());
+    float score;
+    int number;
+    // Judge the movie score is null or not
+    if (scoreElement.hasText()) {
+      score = Float.parseFloat(scoreElement.text());
+      number = Integer.parseInt(numberElement.text());
+    } else {
+      score = 0.0f;
+      number = 0;
+    }
 
     //set the movie information name,score,scorenumber,time
     long processTime = System.currentTimeMillis();
