@@ -16,6 +16,27 @@ public class Page {
   private String movieId;
   private Set<String> urlSet = new HashSet<String>();
 
+  public Page(String content, String movieName, float movieScore, int scoreNum, int increaseNum, 
+              long excuteTime, Date excuteDay, String url, String movieId, Set<String> urlSet) {
+    this.content = content;
+    this.movieName = movieName;
+    this.movieScore = movieScore;
+    this.scoreNum = scoreNum;
+    this.increaseNum = increaseNum;
+    this.excuteTime = excuteTime;
+    this.excuteDay = excuteDay;
+    this.url = url;
+    this.movieId = movieId;
+    this.urlSet = urlSet;
+  }
+
+  public Page(String movieName, float movieScore, int scoreNum, int increaseNum, long excuteTime, Date excuteDay, String url, String movieId) {
+    this(null, movieName, movieScore, scoreNum, increaseNum, excuteTime, excuteDay, url, movieId, null);
+  }
+
+  public Page() {
+  }
+
   public String getContent() {
     return content;
   }
