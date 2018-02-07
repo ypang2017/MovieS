@@ -1,10 +1,7 @@
 package com.movies.spider.start;
 
 import com.movies.spider.entity.Page;
-import com.movies.spider.service.ConsoleStoreService;
-import com.movies.spider.service.HBaseStoreService;
-import com.movies.spider.service.HttpClientDownLoadService;
-import com.movies.spider.service.MovieOnProcessService;
+import com.movies.spider.service.*;
 import com.movies.spider.service.impl.IStoreService;
 import com.movies.spider.utils.LoadPropertyUtil;
 import org.apache.commons.lang.StringUtils;
@@ -81,8 +78,9 @@ public class StartOnShowSpider {
     StartOnShowSpider start = new StartOnShowSpider();
     start.setDownLoadService(new HttpClientDownLoadService());
     start.setProcessService(new MovieOnProcessService());
-    start.storeService = new ConsoleStoreService();
+//    start.storeService = new ConsoleStoreService();
 //    start.storeService = new HBaseStoreService();
+    start.storeService = new MysqlStoreService();
 
     String url = "https://movie.douban.com/";
     start.urlQueue.add(url);
