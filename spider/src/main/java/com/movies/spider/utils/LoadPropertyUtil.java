@@ -8,16 +8,24 @@ public class LoadPropertyUtil {
 
   //Read the configuration of on show movies
   public static String getOnShow(String key){
-    return getValue("onshow",key);
+    return getValue("onshow", key);
   }
+  
   //Read the common configuration
   public static String getCommon(String key){
-    return getValue("common",key);
+    return getValue("common", key);
   }
+  
   //Read mysql configuration
   public static String getMysql(String key) {
-    return getValue("mysql",key);
+    return getValue("mysql", key);
   }
+  
+  //Read qqmailbox configuration
+  public static String getQQmailbox(String key) {
+    return getValue("qqmailbox", key);
+  }
+  
   //Get the configuration value through baseName and key
   public static String getValue(String baseName, String key) {
     String value = "";
@@ -38,5 +46,6 @@ public class LoadPropertyUtil {
 //    System.out.println(getOnShow("numberElement"));
 //    System.out.println(getCommon("threadNum"));
 //    System.out.println(getMysql("driverClass"));
+    System.out.println(getQQmailbox("mail.user"));
   }
 }
