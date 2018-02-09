@@ -2,7 +2,9 @@ package com.movies.spider.service;
 
 import com.movies.spider.entity.Page;
 import com.movies.spider.service.impl.IProcessService;
+import com.movies.spider.service.impl.IStoreService;
 import com.movies.spider.utils.LoadPropertyUtil;
+import com.movies.spider.utils.MysqlUtil;
 import com.movies.spider.utils.RegexUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -40,6 +42,7 @@ public class MovieOnProcessService implements IProcessService {
    * Parse the detail moive page information
    */
   public static void parseDetail(Page page, Document doc) {
+    MysqlStoreService iStoreService = null;
     //Selector, select feature information
     Elements nameElement = doc.select(LoadPropertyUtil.getOnShow("nameElement"));// name information
     Elements scoreElement = doc.select(LoadPropertyUtil.getOnShow("scoreElement"));// score information
@@ -65,10 +68,25 @@ public class MovieOnProcessService implements IProcessService {
     page.setScoreNum(number);
     page.setExcuteTime(processTime);
     page.setExcuteDay(processDate);
-    page.setIncreaseNum(0);
+//    page.setIncreaseNum(0);
 
-    // set the movie id
+    //set the movie id
     Pattern pattern = Pattern.compile(LoadPropertyUtil.getOnShow("idRegex"));
-    page.setMovieId("OnShow_" + RegexUtil.getPageInfoByRegex(page.getContent(), pattern, 1));
+    String movieId = "OnShow_" + RegexUtil.getPageInfoByRegex(page.getContent(), pattern, 1);
+    page.setMovieId(movieId);
+
+    //set the increase number，
+    iStoreService = new MysqlStoreService();
+    if (iStoreService.isExist(movieId)) {
+      String sql = "SELECT max(scoreNum) from movieinfo where movieId=?";
+      int recentlyRecord = iStoreService.searchOneValue(sql, movieId);
+
+      //get the up-to-date page info from mysql,
+      // the increase number is number subtract the recently biggest scoreNum record
+      page.setIncreaseNum(number - recentlyRecord);
+    } else {
+      //the moiveId is not exist in DB,set "0" as the first increase number
+      page.setIncreaseNum(0);
+    }
   }
 }

@@ -53,10 +53,10 @@ public class QQEmailSender implements IMailSender{
       message.setRecipient(Message.RecipientType.TO, to);
 
       //Set the mail title
-      message.setSubject("Test email");
+      message.setSubject("Test e-mail");
 
       //Set the detail content
-      message.setContent("This is a test email", "text/html;charset=UTF-8");
+      message.setContent("This is a test e-mail", "text/html;charset=UTF-8");
       
       //Send the email
       Transport.send(message);

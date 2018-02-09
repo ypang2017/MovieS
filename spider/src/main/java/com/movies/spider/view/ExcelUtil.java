@@ -21,7 +21,8 @@ public class ExcelUtil {
       WritableWorkbook wwb = null;
 
       // Create a Excel workbook
-      String fileName = "/home/hadoop/work/mycel/Mycel/mysql.xls";
+//      String fileName = "/home/hadoop/work/mycel/Mycel/mysql.xls";
+      String fileName = "D:\\学习\\java\\MovieS\\mysql.xls";
       File file = new File(fileName);
       if (!file.exists()) {
         file.createNewFile();
@@ -35,7 +36,7 @@ public class ExcelUtil {
       // Query all data from the database
       List<Page> list = (List<Page>) mysqlStoreService.searchAll();
       // Use the defaut number "0" as the first column in Excel
-      Label Moviename = new Label(0, 0, "Moviename)");
+      Label Moviename = new Label(0, 0, "Moviename");
       Label Moviescore = new Label(1, 0, "Moviescore");
       Label Scorenum = new Label(2, 0, "Scorenum");
       Label DayIncrease = new Label(3, 0, "DayIncrease");

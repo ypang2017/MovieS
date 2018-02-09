@@ -47,5 +47,6 @@ public class LoadPropertyUtil {
 //    System.out.println(getCommon("threadNum"));
 //    System.out.println(getMysql("driverClass"));
     System.out.println(getQQmailbox("mail.user"));
+    System.out.println(LoadPropertyUtil.getMysql("driverClass"));
   }
 }

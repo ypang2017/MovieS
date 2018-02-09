@@ -78,9 +78,9 @@ public class StartOnShowSpider {
     StartOnShowSpider start = new StartOnShowSpider();
     start.setDownLoadService(new HttpClientDownLoadService());
     start.setProcessService(new MovieOnProcessService());
-    start.storeService = new ConsoleStoreService();
+//    start.storeService = new ConsoleStoreService();
 //    start.storeService = new HBaseStoreService();
-//    start.storeService = new MysqlStoreService();
+    start.storeService = new MysqlStoreService();
 
     String url = "https://movie.douban.com/";
     start.urlQueue.add(url);
@@ -124,7 +124,7 @@ public class StartOnShowSpider {
           }
         });
       } else {
-        System.out.println("The all URLs in the queue is parse, please wait");
+        System.out.println("All URLs in the queue is parse, please wait");
         try {
           Thread.currentThread().sleep(Long.parseLong(LoadPropertyUtil.getCommon("million_10")));
         } catch (InterruptedException e) {
