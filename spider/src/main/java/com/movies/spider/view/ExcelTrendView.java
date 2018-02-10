@@ -8,8 +8,8 @@ public class ExcelTrendView implements ITrendView{
   public void show() {
   }
 
-  public static void main(String[] args) {
-    ExcelUtil excelUtil = new ExcelUtil();
-    excelUtil.Data2Excel();
-  }
+//  public static void main(String[] args) {
+//    ExcelUtil excelUtil = new ExcelUtil();
+//    excelUtil.Data2Excel();
+//  }
 }

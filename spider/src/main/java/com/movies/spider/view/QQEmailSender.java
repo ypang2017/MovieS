@@ -64,9 +64,9 @@ public class QQEmailSender implements IMailSender{
       e.printStackTrace();
     }
   }
-
-  public static void main(String[] args) {
-    QQEmailSender sender = new QQEmailSender();
-    sender.send();
-  }
+//
+//  public static void main(String[] args) {
+//    QQEmailSender sender = new QQEmailSender();
+//    sender.send();
+//  }
 }

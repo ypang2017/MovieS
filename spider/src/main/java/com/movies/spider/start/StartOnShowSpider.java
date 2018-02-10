@@ -46,6 +46,14 @@ public class StartOnShowSpider {
     this.storeService = storeService;
   }
 
+  public Queue<String> getUrlQueue() {
+    return urlQueue;
+  }
+
+  public void setUrlQueue(Queue<String> urlQueue) {
+    this.urlQueue = urlQueue;
+  }
+
   /**
    * Page download
    *
@@ -74,18 +82,18 @@ public class StartOnShowSpider {
     this.storeService.store(page);
   }
 
-  public static void main(String[] args) {
-    StartOnShowSpider start = new StartOnShowSpider();
-    start.setDownLoadService(new HttpClientDownLoadService());
-    start.setProcessService(new MovieOnProcessService());
-//    start.storeService = new ConsoleStoreService();
-//    start.storeService = new HBaseStoreService();
-    start.storeService = new MysqlStoreService();
-
-    String url = "https://movie.douban.com/";
-    start.urlQueue.add(url);
-    start.startSpider();
-  }
+//  public static void main(String[] args) {
+//    StartOnShowSpider start = new StartOnShowSpider();
+//    start.setDownLoadService(new HttpClientDownLoadService());
+//    start.setProcessService(new MovieOnProcessService());
+////    start.storeService = new ConsoleStoreService();
+////    start.storeService = new HBaseStoreService();
+//    start.storeService = new MysqlStoreService();
+//
+//    String url = "https://movie.douban.com/";
+//    start.urlQueue.add(url);
+//    start.startSpider();
+//  }
 
   /**
    * Start a entrance for spider
