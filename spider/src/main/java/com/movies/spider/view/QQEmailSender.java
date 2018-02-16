@@ -1,11 +1,14 @@
 package com.movies.spider.view;
 
+import com.movies.spider.service.MysqlStoreService;
 import com.movies.spider.utils.LoadPropertyUtil;
+import com.movies.spider.utils.MysqlUtil;
 import com.movies.spider.view.impl.IMailSender;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.sql.Date;
 import java.util.Properties;
 
 /**
@@ -53,18 +56,31 @@ public class QQEmailSender implements IMailSender{
       message.setRecipient(Message.RecipientType.TO, to);
 
       //Set the mail title
-      message.setSubject("Test e-mail");
+      message.setSubject("Douban on showing movies trend");
 
       //Set the detail content
-      message.setContent("This is a test e-mail", "text/html;charset=UTF-8");
-      
+      Date today = new Date(System.currentTimeMillis());
+      MysqlStoreService iStoreService = new MysqlStoreService();
+      int movieNum = 0;
+      String popularMovie = null;
+      String movieNumSql = "select count(*) from movieinfo where excuteDay=?";
+      String movieSql = "select movieName,max(increaseNum) from movieinfo where excuteDay=?";
+      if (iStoreService.isExist(today)) {
+        movieNum = Integer.parseInt(iStoreService.searchOneValue(movieNumSql, today));
+        popularMovie = iStoreService.searchOneValue(movieSql, today);
+        message.setContent("Today the number of on show movies is:" + movieNum + "\r"
+                        + "The most popular movie recently is:" + popularMovie,
+                "text/html;charset=UTF-8");
+      } else {
+        message.setContent("There is no data in the database today","text/html;charset=UTF-8");
+      }
+
       //Send the email
       Transport.send(message);
     } catch (MessagingException e) {
       e.printStackTrace();
     }
   }
-//
 //  public static void main(String[] args) {
 //    QQEmailSender sender = new QQEmailSender();
 //    sender.send();

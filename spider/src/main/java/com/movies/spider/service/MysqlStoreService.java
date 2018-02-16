@@ -57,6 +57,7 @@ public class MysqlStoreService implements IStoreService {
 
   /**
    * Search one movie record in mysql
+   *
    * @param sql
    * @return
    */
@@ -94,8 +95,21 @@ public class MysqlStoreService implements IStoreService {
     return result;
   }
 
+  public String searchOneValue(String sql, Date excuteDay) {
+    String result = null;
+    ResultSet res = mysqlUtil.search(sql, new String[]{excuteDay.toString()});
+    try {
+      while (res.next()) {
+        result = res.getString(1);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return result;
+  }
+
   /**
-   * Is movie exist or not
+   * Is movie exist or not,dudged by moiveId
    *
    * @param id
    * @return
@@ -104,6 +118,25 @@ public class MysqlStoreService implements IStoreService {
     String sql = "select * from movieinfo where movieId=?";
     try {
       ResultSet rs = mysqlUtil.search(sql, new String[]{id});
+      if (rs.next()) {
+        return true;
+      }
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    return false;
+  }
+
+  /**
+   * Is movies infor exist or not,dudged by excuteDay
+   * @param date
+   * @return
+   */
+  public boolean isExist(Date date) {
+    String sql = "select * from movieinfo where excuteDay=?";
+    try {
+      ResultSet rs = mysqlUtil.search(sql, new String[]{date.toString()});
       if (rs.next()) {
         return true;
       }
