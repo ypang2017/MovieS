@@ -2,6 +2,7 @@ package com.movies.spider.start;
 
 import com.movies.spider.entity.Page;
 import com.movies.spider.service.*;
+import com.movies.spider.service.impl.IRepositoryService;
 import com.movies.spider.service.impl.IStoreService;
 import com.movies.spider.utils.LoadPropertyUtil;
 import org.apache.commons.lang.StringUtils;
@@ -21,6 +22,7 @@ public class StartOnShowSpider {
   private IStoreService storeService;
   private Queue<String> urlQueue = new ConcurrentLinkedQueue<String>();
   private ExecutorService newFixedThreadPool = Executors.newFixedThreadPool(Integer.parseInt(LoadPropertyUtil.getCommon("threadNum")));
+  private IRepositoryService repositoryService;
 
   public HttpClientDownLoadService getDownLoadService() {
     return downLoadService;
@@ -52,6 +54,14 @@ public class StartOnShowSpider {
 
   public void setUrlQueue(Queue<String> urlQueue) {
     this.urlQueue = urlQueue;
+  }
+
+  public IRepositoryService getiRepositoryService() {
+    return repositoryService;
+  }
+
+  public void setiRepositoryService(IRepositoryService iRepositoryService) {
+    this.repositoryService = iRepositoryService;
   }
 
   /**
@@ -89,9 +99,11 @@ public class StartOnShowSpider {
 ////    start.storeService = new ConsoleStoreService();
 ////    start.storeService = new HBaseStoreService();
 //    start.storeService = new MysqlStoreService();
+//    start.repositoryService = new RedisRepositoryService();
 //
 //    String url = "https://movie.douban.com/";
-//    start.urlQueue.add(url);
+////    start.urlQueue.add(url);
+//    start.repositoryService.addHighLevel(url);
 //    start.startSpider();
 //  }
 
@@ -100,8 +112,12 @@ public class StartOnShowSpider {
    */
   public void startSpider() {
     while (true) {
-      //Poll a url from urlQueue to parse
-      final String url = urlQueue.poll();
+//      //Poll a url from urlQueue to parse
+//      final String url = urlQueue.poll();
+
+      //Poll a url from repository to parse
+      final String url = repositoryService.poll();
+
       if (StringUtils.isNotBlank(url)) {
         newFixedThreadPool.execute(new Runnable() {
           @Override
@@ -115,7 +131,8 @@ public class StartOnShowSpider {
               //Add the on show movies's urls to the urlQueue
               Set<String> onShowUrls = page.getUrlSet();
               for (String eachUrl : onShowUrls) {
-                urlQueue.add(eachUrl);
+//                urlQueue.add(eachUrl);
+                repositoryService.addLowLevel(eachUrl);
               }
             } else {
               //Store the on show movies's information
