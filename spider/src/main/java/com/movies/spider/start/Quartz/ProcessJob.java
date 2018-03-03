@@ -3,6 +3,7 @@ package com.movies.spider.start.Quartz;
 import com.movies.spider.service.HttpClientDownLoadService;
 import com.movies.spider.service.MovieOnProcessService;
 import com.movies.spider.service.MysqlStoreService;
+import com.movies.spider.service.RedisRepositoryService;
 import com.movies.spider.start.StartOnShowSpider;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
@@ -17,9 +18,11 @@ public class ProcessJob implements Job {
 //    start.storeService = new ConsoleStoreService();
 //    start.storeService = new HBaseStoreService();
     start.setStoreService(new MysqlStoreService());
+    start.setiRepositoryService(new RedisRepositoryService());
 
     String url = "https://movie.douban.com/";
-    start.getUrlQueue().add(url);
+//    start.getUrlQueue().add(url);
+    start.getiRepositoryService().addHighLevel(url);
     start.startSpider();
   }
 }

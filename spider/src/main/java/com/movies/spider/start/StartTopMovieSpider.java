@@ -14,11 +14,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * This is an entrance of on show movies on Home Page
+ * This is an entrance of Top250 movies on Top250 Page
  */
-public class StartOnShowSpider {
+public class StartTopMovieSpider {
   private HttpClientDownLoadService downLoadService;
-  private MovieOnProcessService processService;
+  private MovieTop250ProcessService processService;
   private IStoreService storeService;
   private Queue<String> urlQueue = new ConcurrentLinkedQueue<String>();
   private ExecutorService newFixedThreadPool = Executors.newFixedThreadPool(Integer.parseInt(LoadPropertyUtil.getCommon("threadNum")));
@@ -32,11 +32,11 @@ public class StartOnShowSpider {
     this.downLoadService = downLoadService;
   }
 
-  public MovieOnProcessService getProcessService() {
+  public MovieTop250ProcessService getProcessService() {
     return processService;
   }
 
-  public void setProcessService(MovieOnProcessService processService) {
+  public void setProcessService(MovieTop250ProcessService processService) {
     this.processService = processService;
   }
 
@@ -93,15 +93,15 @@ public class StartOnShowSpider {
   }
 
   public static void main(String[] args) {
-    StartOnShowSpider start = new StartOnShowSpider();
+    StartTopMovieSpider start = new StartTopMovieSpider();
     start.setDownLoadService(new HttpClientDownLoadService());
-    start.setProcessService(new MovieOnProcessService());
+    start.setProcessService(new MovieTop250ProcessService());
 //    start.storeService = new ConsoleStoreService();
 //    start.storeService = new HBaseStoreService();
     start.storeService = new MysqlStoreService();
     start.repositoryService = new RedisRepositoryService();
 
-    String url = "https://movie.douban.com/";
+    String url = "https://movie.douban.com/top250";
 //    start.urlQueue.add(url);
     start.repositoryService.addHighLevel(url);
     start.startSpider();
@@ -124,10 +124,10 @@ public class StartOnShowSpider {
           public void run() {
             System.out.println("Current excuting thread is:" + Thread.currentThread().getId());
             //Page download
-            Page page = StartOnShowSpider.this.downloadPage(url);
+            Page page = StartTopMovieSpider.this.downloadPage(url);
             //Page parse
-            StartOnShowSpider.this.processPage(page);
-            if (url.equals("https://movie.douban.com/")) {
+            StartTopMovieSpider.this.processPage(page);
+            if (url.equals("https://movie.douban.com/top250")) {
               //Add the on show movies's urls to the urlQueue
               Set<String> onShowUrls = page.getUrlSet();
               for (String eachUrl : onShowUrls) {
@@ -136,14 +136,12 @@ public class StartOnShowSpider {
               }
             } else {
               //Store the on show movies's information
-              if (url.endsWith("from=showing")) {
-                //Page store
-                StartOnShowSpider.this.storePageInfo(page);
-                try {
-                  Thread.currentThread().sleep(Long.parseLong(LoadPropertyUtil.getCommon("million_5")));
-                } catch (InterruptedException e) {
-                  e.printStackTrace();
-                }
+              //Page store
+              StartTopMovieSpider.this.storePageInfo(page);
+              try {
+                Thread.currentThread().sleep(Long.parseLong(LoadPropertyUtil.getCommon("million_5")));
+              } catch (InterruptedException e) {
+                e.printStackTrace();
               }
             }
           }
