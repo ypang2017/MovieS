@@ -93,12 +93,13 @@ public class StartOnShowSpider {
   }
 
   public static void main(String[] args) {
+    String tableName = "onshowmovie";
     StartOnShowSpider start = new StartOnShowSpider();
     start.setDownLoadService(new HttpClientDownLoadService());
     start.setProcessService(new MovieOnProcessService());
 //    start.storeService = new ConsoleStoreService();
 //    start.storeService = new HBaseStoreService();
-    start.storeService = new MysqlStoreService();
+    start.storeService = new MysqlStoreService(tableName);
     start.repositoryService = new RedisRepositoryService();
 
     String url = "https://movie.douban.com/";

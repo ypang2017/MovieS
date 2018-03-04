@@ -8,12 +8,12 @@ public class LoadPropertyUtil {
 
   //Read the configuration of on show movies
   public static String getOnShow(String key){
-    return getValue("onshow", key);
+    return getValue("OnShowMovie", key);
   }
 
   //Read the configuration of top250 movies
   public static String getTopMovie(String key){
-    return getValue("topmovie", key);
+    return getValue("TopMovie", key);
   }
   
   //Read the common configuration

@@ -2,9 +2,7 @@ package com.movies.spider.service;
 
 import com.movies.spider.entity.Page;
 import com.movies.spider.service.impl.IProcessService;
-import com.movies.spider.service.impl.IStoreService;
 import com.movies.spider.utils.LoadPropertyUtil;
-import com.movies.spider.utils.MysqlUtil;
 import com.movies.spider.utils.RegexUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -43,6 +41,8 @@ public class MovieOnProcessService implements IProcessService {
    */
   public static void parseDetail(Page page, Document doc) {
     MysqlStoreService iStoreService = null;
+    String tableName = "onshowmovie";
+
     //Selector, select feature information
     Elements nameElement = doc.select(LoadPropertyUtil.getOnShow("nameElement"));// name information
     Elements scoreElement = doc.select(LoadPropertyUtil.getOnShow("scoreElement"));// score information
@@ -76,9 +76,9 @@ public class MovieOnProcessService implements IProcessService {
     page.setMovieId(movieId);
 
     //set the increase number，
-    iStoreService = new MysqlStoreService();
+    iStoreService = new MysqlStoreService(tableName);
     if (iStoreService.isExist(movieId)) {
-      String sql = "SELECT max(scoreNum) from movieinfo where movieId=?";
+      String sql = LoadPropertyUtil.getOnShow("maxScoreNumSql");
       int recentlyRecord = iStoreService.searchOneValue(sql, movieId);
 
       //get the up-to-date page info from mysql,

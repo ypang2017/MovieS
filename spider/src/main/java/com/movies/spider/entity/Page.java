@@ -14,10 +14,11 @@ public class Page {
   private Date excuteDay;//spider excute day
   private String url;
   private String movieId;
+  private int movieRank;
   private Set<String> urlSet = new HashSet<String>();
 
   public Page(String content, String movieName, float movieScore, int scoreNum, int increaseNum, 
-              long excuteTime, Date excuteDay, String url, String movieId, Set<String> urlSet) {
+              long excuteTime, Date excuteDay, String url, String movieId, int movieRank, Set<String> urlSet) {
     this.content = content;
     this.movieName = movieName;
     this.movieScore = movieScore;
@@ -27,11 +28,12 @@ public class Page {
     this.excuteDay = excuteDay;
     this.url = url;
     this.movieId = movieId;
+    this.movieRank = movieRank;
     this.urlSet = urlSet;
   }
 
   public Page(String movieName, float movieScore, int scoreNum, int increaseNum, long excuteTime, Date excuteDay, String url, String movieId) {
-    this(null, movieName, movieScore, scoreNum, increaseNum, excuteTime, excuteDay, url, movieId, null);
+    this(null, movieName, movieScore, scoreNum, increaseNum, excuteTime, excuteDay, url, movieId, 0, null);
   }
 
   public Page() {
@@ -107,6 +109,14 @@ public class Page {
 
   public void setMovieId(String movieId) {
     this.movieId = movieId;
+  }
+
+  public int getMovieRank() {
+    return movieRank;
+  }
+
+  public void setMovieRank(int movieRank) {
+    this.movieRank = movieRank;
   }
 
   public Set<String> getUrlSet() {

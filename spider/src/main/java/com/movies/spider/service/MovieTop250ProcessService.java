@@ -40,6 +40,7 @@ public class MovieTop250ProcessService implements IProcessService {
    * Parse the detail moive page information
    */
   public static void parseDetail(Page page, Document doc) {
+    String tableName = "topmovie";
     MysqlStoreService iStoreService = null;
     //Selector, select feature information
     Elements nameElement = doc.select(LoadPropertyUtil.getTopMovie("nameElement"));// name information
@@ -73,7 +74,7 @@ public class MovieTop250ProcessService implements IProcessService {
     page.setMovieId(movieId);
 
     //set the increase number，
-    iStoreService = new MysqlStoreService();
+    iStoreService = new MysqlStoreService(tableName);
     if (iStoreService.isExist(movieId)) {
       String sql = "SELECT max(scoreNum) from movieinfo_top250 where movieId=?";
       int recentlyRecord = iStoreService.searchOneValue(sql, movieId);

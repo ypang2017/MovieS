@@ -6,7 +6,7 @@ public class MysqlUtil {
   static Connection con=null;
   static PreparedStatement pstmt=null;
   static ResultSet res=null;
-  
+
   //Get the mysql connection
   public static Connection getConnection() {
     try {

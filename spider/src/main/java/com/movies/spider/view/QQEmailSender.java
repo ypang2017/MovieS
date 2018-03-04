@@ -60,11 +60,12 @@ public class QQEmailSender implements IMailSender{
 
       //Set the detail content
       Date today = new Date(System.currentTimeMillis());
-      MysqlStoreService iStoreService = new MysqlStoreService();
+      String tableName = "onshowmovie";
+      MysqlStoreService iStoreService = new MysqlStoreService(tableName);
       int movieNum = 0;
       String popularMovie = null;
-      String movieNumSql = "select count(*) from movieinfo where excuteDay=?";
-      String movieSql = "select movieName,max(increaseNum) from movieinfo where excuteDay=?";
+      String movieNumSql = LoadPropertyUtil.getOnShow("movieNumSql");
+      String movieSql = LoadPropertyUtil.getOnShow("maxNumSql");
       if (iStoreService.isExist(today)) {
         movieNum = Integer.parseInt(iStoreService.searchOneValue(movieNumSql, today));
         popularMovie = iStoreService.searchOneValue(movieSql, today);

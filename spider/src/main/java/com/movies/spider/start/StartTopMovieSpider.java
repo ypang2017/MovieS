@@ -98,7 +98,8 @@ public class StartTopMovieSpider {
     start.setProcessService(new MovieTop250ProcessService());
 //    start.storeService = new ConsoleStoreService();
 //    start.storeService = new HBaseStoreService();
-    start.storeService = new MysqlStoreService();
+    String tableName = "topmovie";
+    start.storeService = new MysqlStoreService(tableName);
     start.repositoryService = new RedisRepositoryService();
 
     String url = "https://movie.douban.com/top250";
