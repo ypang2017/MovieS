@@ -23,10 +23,9 @@ public class MovieTop250ProcessService implements IProcessService {
 
     Document doc = Jsoup.parse(page.getContent());
 
-    if (page.getUrl().equals("https://movie.douban.com/top250")) {
+    if (page.getUrl().startsWith("https://movie.douban.com/top250")) {
       Elements links = doc.select("a[href]");
 
-      System.out.println(links.size());
       for (Element link : links) {
         Pattern pattern = Pattern.compile(LoadPropertyUtil.getTopMovie("urlRegex"));
         page.addUrl(RegexUtil.getPageInfoByRegex(link.toString(), pattern, 0));
@@ -46,10 +45,13 @@ public class MovieTop250ProcessService implements IProcessService {
     Elements nameElement = doc.select(LoadPropertyUtil.getTopMovie("nameElement"));// name information
     Elements scoreElement = doc.select(LoadPropertyUtil.getTopMovie("scoreElement"));// score information
     Elements numberElement = doc.select(LoadPropertyUtil.getTopMovie("numberElement"));// scorenumber information
+    Elements rankElement = doc.select(LoadPropertyUtil.getTopMovie("rankElement"));//movierank information
     //parse the movie information from the page context
     String name = nameElement.text();
     float score;
     int number;
+    int rank = Integer.parseInt(RegexUtil.getPageInfoByRegex(rankElement.text(), Pattern.compile("[\\d]+"), 0));
+//    int rank = Integer.parseInt("1");
     // Judge the movie score is null or not
     if (scoreElement.hasText()) {
       score = Float.parseFloat(scoreElement.text());
@@ -67,6 +69,7 @@ public class MovieTop250ProcessService implements IProcessService {
     page.setScoreNum(number);
     page.setExcuteTime(processTime);
     page.setExcuteDay(processDate);
+    page.setMovieRank(rank);
 
     //set the movie id
     Pattern pattern = Pattern.compile(LoadPropertyUtil.getTopMovie("idRegex"));
@@ -76,7 +79,7 @@ public class MovieTop250ProcessService implements IProcessService {
     //set the increase number，
     iStoreService = new MysqlStoreService(tableName);
     if (iStoreService.isExist(movieId)) {
-      String sql = "SELECT max(scoreNum) from movieinfo_top250 where movieId=?";
+      String sql = LoadPropertyUtil.getTopMovie("maxScoreNumSql");
       int recentlyRecord = iStoreService.searchOneValue(sql, movieId);
 
       //get the up-to-date page info from mysql,

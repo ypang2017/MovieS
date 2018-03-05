@@ -102,9 +102,13 @@ public class StartTopMovieSpider {
     start.storeService = new MysqlStoreService(tableName);
     start.repositoryService = new RedisRepositoryService();
 
-    String url = "https://movie.douban.com/top250";
-//    start.urlQueue.add(url);
-    start.repositoryService.addHighLevel(url);
+    String url = null;
+    for (int i = 0; i < 10; i++) {
+      url = "https://movie.douban.com/top250" + "?start=" + i*25 + "&filter=";
+      //    start.urlQueue.add(url);
+      start.repositoryService.addHighLevel(url);
+    }
+
     start.startSpider();
   }
 
@@ -128,10 +132,9 @@ public class StartTopMovieSpider {
             Page page = StartTopMovieSpider.this.downloadPage(url);
             //Page parse
             StartTopMovieSpider.this.processPage(page);
-            if (url.equals("https://movie.douban.com/top250")) {
-              //Add the on show movies's urls to the urlQueue
-              Set<String> onShowUrls = page.getUrlSet();
-              for (String eachUrl : onShowUrls) {
+            if (url.startsWith("https://movie.douban.com/top250")) {
+              Set<String> topMovieUrls = page.getUrlSet();
+              for (String eachUrl : topMovieUrls) {
 //                urlQueue.add(eachUrl);
                 repositoryService.addLowLevel(eachUrl);
               }

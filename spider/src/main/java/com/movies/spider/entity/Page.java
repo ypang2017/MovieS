@@ -36,6 +36,10 @@ public class Page {
     this(null, movieName, movieScore, scoreNum, increaseNum, excuteTime, excuteDay, url, movieId, 0, null);
   }
 
+  public Page(String movieName, float movieScore, int scoreNum, int increaseNum, long excuteTime, Date excuteDay, String url, String movieId, int movieRank) {
+    this(null, movieName, movieScore, scoreNum, increaseNum, excuteTime, excuteDay, url, movieId, movieRank, null);
+  }
+
   public Page() {
   }
 

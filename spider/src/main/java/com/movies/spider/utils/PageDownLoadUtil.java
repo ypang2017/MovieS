@@ -36,8 +36,8 @@ public class PageDownLoadUtil {
    * @param args
    */
   public static void main(String[] args) {
-//    String url = "https://movie.douban.com/";
-    String url = "https://movie.douban.com/top250";
+//    String url = "https://movie.douban.com/subject/5912992/";
+    String url = "https://movie.douban.com/top250?start=225&filter=";
     PageDownLoadUtil util = new PageDownLoadUtil();
     System.out.println(util.getPageContent(url));
   }
