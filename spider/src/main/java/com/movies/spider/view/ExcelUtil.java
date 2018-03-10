@@ -1,7 +1,7 @@
 package com.movies.spider.view;
 
 import com.movies.spider.entity.Page;
-import com.movies.spider.service.MysqlStoreService;
+import com.movies.spider.service.impl.MysqlStoreService;
 import jxl.Workbook;
 import jxl.write.Label;
 import jxl.write.WritableSheet;

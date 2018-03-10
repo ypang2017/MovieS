@@ -1,10 +1,10 @@
-package com.movies.spider.service;
+package com.movies.spider.service.impl;
 
-import com.movies.spider.dao.OnShowMovieDao;
-import com.movies.spider.dao.TopMovieDao;
-import com.movies.spider.dao.impl.IDao;
+import com.movies.spider.dao.impl.OnShowMovieDao;
+import com.movies.spider.dao.impl.TopMovieDao;
+import com.movies.spider.dao.IDao;
 import com.movies.spider.entity.Page;
-import com.movies.spider.service.impl.IStoreService;
+import com.movies.spider.service.IStoreService;
 import com.movies.spider.utils.MysqlUtil;
 
 import java.sql.Date;

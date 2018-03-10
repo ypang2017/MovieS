@@ -1,4 +1,4 @@
-package com.movies.spider.view.impl;
+package com.movies.spider.view;
 
 /**
  * Send a e-mail

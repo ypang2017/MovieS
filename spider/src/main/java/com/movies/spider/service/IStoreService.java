@@ -1,4 +1,4 @@
-package com.movies.spider.service.impl;
+package com.movies.spider.service;
 
 import com.movies.spider.entity.Page;
 

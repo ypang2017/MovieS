@@ -1,9 +1,8 @@
-package com.movies.spider.view;
+package com.movies.spider.view.impl;
 
-import com.movies.spider.service.MysqlStoreService;
+import com.movies.spider.service.impl.MysqlStoreService;
 import com.movies.spider.utils.LoadPropertyUtil;
-import com.movies.spider.utils.MysqlUtil;
-import com.movies.spider.view.impl.IMailSender;
+import com.movies.spider.view.IMailSender;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -14,7 +13,7 @@ import java.util.Properties;
 /**
  * Use QQ mailbox to send an e-mail 
  */
-public class QQEmailSender implements IMailSender{
+public class QQEmailSender implements IMailSender {
   @Override
   public void send() {
     // Create Properties to storage some mailbox properties

@@ -1,9 +1,11 @@
-package com.movies.spider.view;
+package com.movies.spider.view.impl;
+
+import com.movies.spider.view.ITrendView;
 
 /**
  * Use Excel to show the movies trend
  */
-public class ExcelTrendView implements ITrendView{
+public class ExcelTrendView implements ITrendView {
   @Override
   public void show() {
   }

@@ -1,9 +1,9 @@
 package com.movies.spider.start;
 
 import com.movies.spider.entity.Page;
-import com.movies.spider.service.*;
-import com.movies.spider.service.impl.IRepositoryService;
-import com.movies.spider.service.impl.IStoreService;
+import com.movies.spider.service.IRepositoryService;
+import com.movies.spider.service.IStoreService;
+import com.movies.spider.service.impl.*;
 import com.movies.spider.utils.LoadPropertyUtil;
 import org.apache.commons.lang.StringUtils;
 

@@ -1,7 +1,7 @@
-package com.movies.spider.service;
+package com.movies.spider.service.impl;
 
 import com.movies.spider.entity.Page;
-import com.movies.spider.service.impl.IDownLoadService;
+import com.movies.spider.service.IDownLoadService;
 import com.movies.spider.utils.PageDownLoadUtil;
 
 /**

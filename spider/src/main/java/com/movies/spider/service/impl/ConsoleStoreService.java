@@ -1,7 +1,7 @@
-package com.movies.spider.service;
+package com.movies.spider.service.impl;
 
 import com.movies.spider.entity.Page;
-import com.movies.spider.service.impl.IStoreService;
+import com.movies.spider.service.IStoreService;
 
 /**
  * Use the console to show the storage information

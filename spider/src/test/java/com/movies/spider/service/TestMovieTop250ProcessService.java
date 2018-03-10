@@ -1,9 +1,9 @@
 package com.movies.spider.service;
 
 import com.movies.spider.entity.Page;
+import com.movies.spider.service.impl.HttpClientDownLoadService;
+import com.movies.spider.service.impl.MovieTop250ProcessService;
 import org.junit.Test;
-
-import javax.xml.bind.SchemaOutputResolver;
 
 public class TestMovieTop250ProcessService {
 

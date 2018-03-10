@@ -1,4 +1,4 @@
-package com.movies.spider.dao.impl;
+package com.movies.spider.dao;
 
 import com.movies.spider.entity.Page;
 

@@ -1,6 +1,6 @@
-package com.movies.spider.service;
+package com.movies.spider.service.impl;
 
-import com.movies.spider.service.impl.IRepositoryService;
+import com.movies.spider.service.IRepositoryService;
 import com.movies.spider.utils.RedisUtil;
 import org.apache.commons.lang.StringUtils;
 

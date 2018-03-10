@@ -1,6 +1,6 @@
-package com.movies.spider.dao;
+package com.movies.spider.dao.impl;
 
-import com.movies.spider.dao.impl.IDao;
+import com.movies.spider.dao.IDao;
 import com.movies.spider.entity.Page;
 import com.movies.spider.utils.LoadPropertyUtil;
 import com.movies.spider.utils.MysqlUtil;
@@ -11,22 +11,23 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TopMovieDao implements IDao {
+public class OnShowMovieDao implements IDao {
+
   MysqlUtil mysqlUtil = new MysqlUtil();
 
   @Override
   public void store(Page page) {
-    String sql = LoadPropertyUtil.getTopMovie("storeSql");
+    String sql = LoadPropertyUtil.getOnShow("storeSql");
     String[] str = new String[]{page.getMovieName(), String.valueOf(page.getMovieScore()),
             String.valueOf(page.getScoreNum()), String.valueOf(page.getIncreaseNum()),
             String.valueOf(page.getExcuteTime()), String.valueOf(page.getExcuteDay()),
-            page.getUrl(), String.valueOf(page.getMovieId()), String.valueOf(page.getMovieRank())};
+            page.getUrl(), String.valueOf(page.getMovieId())};
     mysqlUtil.addU(sql, str);
   }
 
   @Override
   public List<Page> searchAll() {
-    String sql = LoadPropertyUtil.getTopMovie("searchAllSql");
+    String sql = LoadPropertyUtil.getOnShow("searchAllSql");
     List<Page> list = new ArrayList<Page>();
 
     ResultSet res = mysqlUtil.search(sql, null);
@@ -40,8 +41,7 @@ public class TopMovieDao implements IDao {
         Date excuteDay = res.getDate("excuteDay");
         String url = res.getString("url");
         String movieId = res.getString("movieId");
-        int movieRank = res.getInt("movieRank");
-        list.add(new Page(movieName, movieScore, soreNum, increaseNum, excuteTime, excuteDay, url, movieId, movieRank));
+        list.add(new Page(movieName, movieScore, soreNum, increaseNum, excuteTime, excuteDay, url, movieId));
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -63,8 +63,7 @@ public class TopMovieDao implements IDao {
         Date excuteDay = res.getDate("excuteDay");
         String url = res.getString("url");
         String movieId = res.getString("movieId");
-        int movieRank = res.getInt("movieRank");
-        page = new Page(movieName, movieScore, soreNum, increaseNum, excuteTime, excuteDay, url, movieId, movieRank);
+        page = new Page(movieName, movieScore, soreNum, increaseNum, excuteTime, excuteDay, url, movieId);
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -102,7 +101,7 @@ public class TopMovieDao implements IDao {
 
   @Override
   public boolean isExist(String id) {
-    String sql = LoadPropertyUtil.getTopMovie("idExistSql");
+    String sql = LoadPropertyUtil.getOnShow("idExistSql");
     try {
       ResultSet rs = mysqlUtil.search(sql, new String[]{id});
       if (rs.next()) {
@@ -117,7 +116,7 @@ public class TopMovieDao implements IDao {
 
   @Override
   public boolean isExist(Date date) {
-    String sql = LoadPropertyUtil.getTopMovie("excuteDayExistSql");
+    String sql = LoadPropertyUtil.getOnShow("excuteDayExistSql");
     try {
       ResultSet rs = mysqlUtil.search(sql, new String[]{date.toString()});
       if (rs.next()) {

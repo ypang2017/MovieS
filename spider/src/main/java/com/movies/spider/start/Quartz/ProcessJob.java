@@ -1,9 +1,9 @@
 package com.movies.spider.start.Quartz;
 
-import com.movies.spider.service.HttpClientDownLoadService;
-import com.movies.spider.service.MovieOnProcessService;
-import com.movies.spider.service.MysqlStoreService;
-import com.movies.spider.service.RedisRepositoryService;
+import com.movies.spider.service.impl.HttpClientDownLoadService;
+import com.movies.spider.service.impl.MovieOnProcessService;
+import com.movies.spider.service.impl.MysqlStoreService;
+import com.movies.spider.service.impl.RedisRepositoryService;
 import com.movies.spider.start.StartOnShowSpider;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;

@@ -1,6 +1,8 @@
 package com.movies.spider.service;
 
 import com.movies.spider.entity.Page;
+import com.movies.spider.service.impl.HttpClientDownLoadService;
+import com.movies.spider.service.impl.MovieOnProcessService;
 import org.junit.Test;
 
 public class TestMovieOnProcessService {

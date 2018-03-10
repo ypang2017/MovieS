@@ -1,6 +1,6 @@
 package com.movies.spider.start.Quartz;
 
-import com.movies.spider.view.QQEmailSender;
+import com.movies.spider.view.impl.QQEmailSender;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
