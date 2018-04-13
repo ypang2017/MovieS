@@ -95,16 +95,15 @@ public class StartOnShowSpider {
   }
 
   public static void main(String[] args) {
+    ApplicationContext context = new ClassPathXmlApplicationContext("onShowBeans.xml");
     StartOnShowSpider start = new StartOnShowSpider();
-    start.setDownLoadService(new HttpClientDownLoadService());
-    start.setProcessService(new MovieOnProcessService());
-//    start.storeService = new ConsoleStoreService();
-//    start.storeService = new HBaseStoreService();
-    ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+    start.setDownLoadService((HttpClientDownLoadService) context.getBean("httpClientDownLoadService"));
+    start.setProcessService((MovieOnProcessService) context.getBean("movieOnProcessService"));
+//    start.storeService = (ConsoleStoreService)context.getBean("consoleStoreService");
+//    start.storeService = (HBaseStoreService) context.getBean("hBaseStoreService");
     start.storeService  = (MysqlStoreService)context.getBean("mysqlStoreService");
-    start.repositoryService = new RedisRepositoryService();
-    start.repositoryService = new QueueRepositoryService();
-//    start.repositoryService = new RedisRepositoryService();
+    start.repositoryService = (QueueRepositoryService) context.getBean("queueRepositoryService");
+//    start.repositoryService = (RedisRepositoryService) context.getBean("redisRepositoryService");
 
     String url = "https://movie.douban.com/";
     start.urlQueue.add(url);

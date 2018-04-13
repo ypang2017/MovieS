@@ -77,7 +77,7 @@ public class MovieOnProcessService implements IProcessService {
     page.setMovieId(movieId);
 
     //set the increase number，
-    ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+    ApplicationContext context = new ClassPathXmlApplicationContext("onShowBeans.xml");
     iStoreService = (MysqlStoreService)context.getBean("mysqlStoreService");
     if (iStoreService.isExist(movieId)) {
       String sql = LoadPropertyUtil.getOnShow("maxScoreNumSql");

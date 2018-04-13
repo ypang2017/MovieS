@@ -5,7 +5,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
-       http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
     <!-- <context:annotation-config/> -->
     <context:component-scan base-package="anotation"/>
@@ -14,6 +14,12 @@
         <property name="mysqlUtil" ref="mysqlUtil"></property>
         <property name="mysqlDao" ref="mysqlDao"></property>
     </bean>
+    <bean id="consoleStoreService" class="com.movies.spider.service.impl.ConsoleStoreService"></bean>
+    <!--<bean id="hBaseStoreService" class="com.movies.spider.service.impl.HBaseStoreService"></bean>-->
+    <bean id="httpClientDownLoadService" class="com.movies.spider.service.impl.HttpClientDownLoadService"></bean>
+    <bean id="movieOnProcessService" class="com.movies.spider.service.impl.MovieOnProcessService"></bean>
+    <bean id="queueRepositoryService" class="com.movies.spider.service.impl.QueueRepositoryService"></bean>
+    <bean id="redisRepositoryService" class="com.movies.spider.service.impl.RedisRepositoryService"></bean>
     <bean id="mysqlDao" class="com.movies.spider.dao.impl.OnShowMovieDao"></bean>
     <bean id="mysqlUtil" class="com.movies.spider.utils.MysqlUtil"></bean>
 
