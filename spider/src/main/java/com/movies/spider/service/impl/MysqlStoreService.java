@@ -1,7 +1,5 @@
 package com.movies.spider.service.impl;
 
-import com.movies.spider.dao.impl.OnShowMovieDao;
-import com.movies.spider.dao.impl.TopMovieDao;
 import com.movies.spider.dao.IDao;
 import com.movies.spider.entity.Page;
 import com.movies.spider.service.IStoreService;
@@ -14,15 +12,15 @@ import java.util.List;
  * Use mysql to store the movies information
  */
 public class MysqlStoreService implements IStoreService {
-  MysqlUtil mysqlUtil = new MysqlUtil();
-  IDao mysqlDao = null;
+  private MysqlUtil mysqlUtil;
+  private IDao mysqlDao;
 
-  public MysqlStoreService(String tableName) {
-    if (("onshowmovie").equals(tableName)) {
-      this.mysqlDao = new OnShowMovieDao();
-    } else if (("topmovie").equals(tableName)) {
-      this.mysqlDao = new TopMovieDao();
-    }
+  public void setMysqlDao(IDao mysqlDao) {
+    this.mysqlDao = mysqlDao;
+  }
+
+  public void setMysqlUtil(MysqlUtil mysqlUtil) {
+    this.mysqlUtil = mysqlUtil;
   }
 
   @Override

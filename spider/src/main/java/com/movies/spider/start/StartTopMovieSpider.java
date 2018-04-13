@@ -4,8 +4,11 @@ import com.movies.spider.entity.Page;
 import com.movies.spider.service.IRepositoryService;
 import com.movies.spider.service.IStoreService;
 import com.movies.spider.service.impl.*;
+import com.movies.spider.spring.DingLei;
 import com.movies.spider.utils.LoadPropertyUtil;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.Queue;
 import java.util.Set;
@@ -99,7 +102,7 @@ public class StartTopMovieSpider {
 //    start.storeService = new ConsoleStoreService();
 //    start.storeService = new HBaseStoreService();
     String tableName = "topmovie";
-    start.storeService = new MysqlStoreService(tableName);
+    start.storeService = new MysqlStoreService();
     start.repositoryService = new RedisRepositoryService();
 
     String url = null;

@@ -18,7 +18,7 @@ public class ProcessJob implements Job {
 //    start.storeService = new ConsoleStoreService();
 //    start.storeService = new HBaseStoreService();
     String tableName = "onshowmovie";
-    start.setStoreService(new MysqlStoreService(tableName));
+    start.setStoreService(new MysqlStoreService());
     start.setiRepositoryService(new RedisRepositoryService());
 
     String url = "https://movie.douban.com/";

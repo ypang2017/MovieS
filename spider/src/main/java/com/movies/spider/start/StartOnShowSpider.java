@@ -6,6 +6,8 @@ import com.movies.spider.service.IStoreService;
 import com.movies.spider.service.impl.*;
 import com.movies.spider.utils.LoadPropertyUtil;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.Queue;
 import java.util.Set;
@@ -93,17 +95,19 @@ public class StartOnShowSpider {
   }
 
   public static void main(String[] args) {
-    String tableName = "onshowmovie";
     StartOnShowSpider start = new StartOnShowSpider();
     start.setDownLoadService(new HttpClientDownLoadService());
     start.setProcessService(new MovieOnProcessService());
-    start.storeService = new ConsoleStoreService();
+//    start.storeService = new ConsoleStoreService();
 //    start.storeService = new HBaseStoreService();
-//    start.storeService = new MysqlStoreService(tableName);
+    ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+    start.storeService  = (MysqlStoreService)context.getBean("mysqlStoreService");
     start.repositoryService = new RedisRepositoryService();
+    start.repositoryService = new QueueRepositoryService();
+//    start.repositoryService = new RedisRepositoryService();
 
     String url = "https://movie.douban.com/";
-//    start.urlQueue.add(url);
+    start.urlQueue.add(url);
     start.repositoryService.addHighLevel(url);
     start.startSpider();
   }

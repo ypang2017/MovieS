@@ -75,7 +75,7 @@ public class MovieTop250ProcessService implements IProcessService {
     page.setMovieId(movieId);
 
     //set the increase number，
-    iStoreService = new MysqlStoreService(tableName);
+    iStoreService = new MysqlStoreService();
     if (iStoreService.isExist(movieId)) {
       String sql = LoadPropertyUtil.getTopMovie("maxScoreNumSql");
       int recentlyRecord = iStoreService.searchOneValue(sql, movieId);

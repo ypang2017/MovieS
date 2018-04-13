@@ -10,9 +10,9 @@ public class TestMovieTop250ProcessService {
   @Test
   public void testProcess(){
     HttpClientDownLoadService downLoadService = new HttpClientDownLoadService();
-//    Page page = downLoadService.downLoad("https://movie.douban.com/top250");
+    Page page = downLoadService.downLoad("https://movie.douban.com/top250");
 //    Page page = downLoadService.downLoad("https://movie.douban.com/subject/1291546/");//《霸王别姬》
-    Page page = downLoadService.downLoad("https://movie.douban.com/subject/5912992/");//《熔炉》
+//    Page page = downLoadService.downLoad("https://movie.douban.com/subject/5912992/");//《熔炉》
     MovieTop250ProcessService movieTop250ProcessService = new MovieTop250ProcessService();
     movieTop250ProcessService.process(page);
     System.out.println(page.getMovieName());

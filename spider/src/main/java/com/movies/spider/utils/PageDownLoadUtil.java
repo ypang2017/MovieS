@@ -26,16 +26,16 @@ public class PageDownLoadUtil {
     String content = null;
 
     //Setting up dynamic proxy IP
-    ProxySpiderVPNServer proxySpider = new ProxySpiderVPNServer();
-    String[] proxyIp = proxySpider.startSpider(1);
-
-    if(StringUtils.isNotBlank(proxyIp.toString())){
-      // Set IP and port
-      HttpHost proxy = new HttpHost(proxyIp[0], Integer.parseInt(proxyIp[1]));
-      client = builder.setProxy(proxy).build();
-    }else{
+//    ProxySpiderVPNServer proxySpider = new ProxySpiderVPNServer();
+//    String[] proxyIp = proxySpider.startSpider(1);
+//
+//    if(StringUtils.isNotBlank(proxyIp.toString())){
+//      // Set IP and port
+//      HttpHost proxy = new HttpHost(proxyIp[0], Integer.parseInt(proxyIp[1]));
+//      client = builder.setProxy(proxy).build();
+//    }else{
       client = builder.build();
-    }
+//    }
 
     try {
       request.setHeader("User-Agent",USER_AGENT);

@@ -60,7 +60,7 @@ public class QQEmailSender implements IMailSender {
       //Set the detail content
       Date today = new Date(System.currentTimeMillis());
       String tableName = "onshowmovie";
-      MysqlStoreService iStoreService = new MysqlStoreService(tableName);
+      MysqlStoreService iStoreService = new MysqlStoreService();
       int movieNum = 0;
       String popularMovie = null;
       String movieNumSql = LoadPropertyUtil.getOnShow("movieNumSql");

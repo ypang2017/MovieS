@@ -16,7 +16,7 @@ public class ExcelUtil {
   //Parse movies information from db to Excel
   public void Data2Excel() {
     String tableName = "onshowmovie";
-    MysqlStoreService mysqlStoreService = new MysqlStoreService(tableName);
+    MysqlStoreService mysqlStoreService = new MysqlStoreService();
 
     // Query all data from the database
     List<Page> list = (List<Page>) mysqlStoreService.searchAll();

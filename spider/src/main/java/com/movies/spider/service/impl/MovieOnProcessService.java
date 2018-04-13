@@ -8,6 +8,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.sql.Date;
 import java.util.regex.Pattern;
@@ -41,7 +43,6 @@ public class MovieOnProcessService implements IProcessService {
    */
   public static void parseDetail(Page page, Document doc) {
     MysqlStoreService iStoreService = null;
-    String tableName = "onshowmovie";
 
     //Selector, select feature information
     Elements nameElement = doc.select(LoadPropertyUtil.getOnShow("nameElement"));// name information
@@ -76,7 +77,8 @@ public class MovieOnProcessService implements IProcessService {
     page.setMovieId(movieId);
 
     //set the increase number，
-    iStoreService = new MysqlStoreService(tableName);
+    ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+    iStoreService = (MysqlStoreService)context.getBean("mysqlStoreService");
     if (iStoreService.isExist(movieId)) {
       String sql = LoadPropertyUtil.getOnShow("maxScoreNumSql");
       int recentlyRecord = iStoreService.searchOneValue(sql, movieId);
