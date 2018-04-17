@@ -1,7 +1,10 @@
 package com.movies.spider.utils;
 
+import org.springframework.stereotype.Component;
+
 import java.sql.*;
 
+@Component(value = "mysqlUtil")
 public class MysqlUtil {
   static Connection con=null;
   static PreparedStatement pstmt=null;

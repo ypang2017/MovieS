@@ -10,6 +10,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import javax.annotation.Resource;
 import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -20,8 +21,12 @@ import java.util.concurrent.Executors;
  * This is an entrance of Top250 movies on Top250 Page
  */
 public class StartTopMovieSpider {
+  @Resource(name = "httpClientDownLoadService")
   private HttpClientDownLoadService downLoadService;
+
+  @Resource(name = "movieTop250ProcessService")
   private MovieTop250ProcessService processService;
+
   private IStoreService storeService;
   private Queue<String> urlQueue = new ConcurrentLinkedQueue<String>();
   private ExecutorService newFixedThreadPool = Executors.newFixedThreadPool(Integer.parseInt(LoadPropertyUtil.getCommon("threadNum")));
@@ -96,14 +101,15 @@ public class StartTopMovieSpider {
   }
 
   public static void main(String[] args) {
+    ApplicationContext context = new ClassPathXmlApplicationContext("topMovieBean.xml");
     StartTopMovieSpider start = new StartTopMovieSpider();
-    start.setDownLoadService(new HttpClientDownLoadService());
-    start.setProcessService(new MovieTop250ProcessService());
+    start.setDownLoadService((HttpClientDownLoadService) context.getBean("httpClientDownLoadService"));
+    start.setProcessService((MovieTop250ProcessService) context.getBean("movieTop250ProcessService"));
 //    start.storeService = new ConsoleStoreService();
 //    start.storeService = new HBaseStoreService();
-    String tableName = "topmovie";
-    start.storeService = new MysqlStoreService();
-    start.repositoryService = new RedisRepositoryService();
+    start.storeService = (MysqlStoreService) context.getBean("mysqlStoreService");
+//    start.repositoryService = new RedisRepositoryService();
+    start.repositoryService = (QueueRepositoryService) context.getBean("queueRepositoryService");
 
     String url = null;
     for (int i = 0; i < 10; i++) {
@@ -120,7 +126,7 @@ public class StartTopMovieSpider {
    */
   public void startSpider() {
     while (true) {
-//      //Poll a url from urlQueue to parse
+////      Poll a url from urlQueue to parse
 //      final String url = urlQueue.poll();
 
       //Poll a url from repository to parse
@@ -142,7 +148,7 @@ public class StartTopMovieSpider {
                 repositoryService.addLowLevel(eachUrl);
               }
             } else {
-              //Store the on show movies's information
+              //Store the top250 movies's information
               //Page store
               StartTopMovieSpider.this.storePageInfo(page);
               try {

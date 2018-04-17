@@ -4,6 +4,7 @@ import com.movies.spider.dao.IDao;
 import com.movies.spider.entity.Page;
 import com.movies.spider.utils.LoadPropertyUtil;
 import com.movies.spider.utils.MysqlUtil;
+import org.springframework.stereotype.Component;
 
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -11,8 +12,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component(value = "topMovieDao")
 public class TopMovieDao implements IDao {
   MysqlUtil mysqlUtil = new MysqlUtil();
+
+  public void setMysqlUtil(MysqlUtil mysqlUtil) {
+    this.mysqlUtil = mysqlUtil;
+  }
 
   @Override
   public void store(Page page) {

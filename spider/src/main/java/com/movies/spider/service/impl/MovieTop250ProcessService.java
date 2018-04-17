@@ -8,6 +8,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.stereotype.Component;
 
 import java.sql.Date;
 import java.util.regex.Pattern;
@@ -15,6 +16,7 @@ import java.util.regex.Pattern;
 /**
  * The top250 movies content parse class
  */
+@Component(value = "movieTop250ProcessService")
 public class MovieTop250ProcessService implements IProcessService {
 
   public void process(Page page) {
@@ -37,7 +39,6 @@ public class MovieTop250ProcessService implements IProcessService {
    * Parse the detail moive page information
    */
   public static void parseDetail(Page page, Document doc) {
-    String tableName = "topmovie";
     MysqlStoreService iStoreService = null;
     //Selector, select feature information
     Elements nameElement = doc.select(LoadPropertyUtil.getTopMovie("nameElement"));// name information
