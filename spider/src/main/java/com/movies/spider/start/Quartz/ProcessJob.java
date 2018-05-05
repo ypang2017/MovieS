@@ -1,28 +1,28 @@
 package com.movies.spider.start.Quartz;
 
-import com.movies.spider.service.impl.HttpClientDownLoadService;
-import com.movies.spider.service.impl.MovieOnProcessService;
-import com.movies.spider.service.impl.MysqlStoreService;
-import com.movies.spider.service.impl.RedisRepositoryService;
+import com.movies.spider.service.impl.*;
 import com.movies.spider.start.StartOnShowSpider;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class ProcessJob implements Job {
   @Override
   public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
+    ApplicationContext context = new ClassPathXmlApplicationContext("onShowBeans.xml");
     StartOnShowSpider start = new StartOnShowSpider();
-    start.setDownLoadService(new HttpClientDownLoadService());
-    start.setProcessService(new MovieOnProcessService());
-//    start.storeService = new ConsoleStoreService();
-//    start.storeService = new HBaseStoreService();
-    String tableName = "onshowmovie";
-    start.setStoreService(new MysqlStoreService());
-    start.setiRepositoryService(new RedisRepositoryService());
+    start.setDownLoadService((HttpClientDownLoadService) context.getBean("httpClientDownLoadService"));
+    start.setProcessService((MovieOnProcessService) context.getBean("movieOnProcessService"));
+//    start.storeService = (ConsoleStoreService)context.getBean("consoleStoreService");
+//    start.storeService = (HBaseStoreService) context.getBean("hBaseStoreService");
+    start.setStoreService((MysqlStoreService) context.getBean("mysqlStoreService"));
+    start.setiRepositoryService((QueueRepositoryService)context.getBean("queueRepositoryService"));
+//    start.repositoryService = (RedisRepositoryService) context.getBean("redisRepositoryService");
 
     String url = "https://movie.douban.com/";
-//    start.getUrlQueue().add(url);
+    start.getUrlQueue().add(url);
     start.getiRepositoryService().addHighLevel(url);
     start.startSpider();
   }
