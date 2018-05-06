@@ -4,6 +4,7 @@ import static org.quartz.CronScheduleBuilder.cronSchedule;
 import static org.quartz.JobBuilder.newJob;
 import static org.quartz.TriggerBuilder.newTrigger;
 
+import com.movies.spider.start.Quartz.impl.OnShowDb2ExcelJob;
 import org.quartz.CronTrigger;
 import org.quartz.JobDetail;
 import org.quartz.Scheduler;
@@ -33,7 +34,7 @@ public class CronTriggerStart {
     log.info("------- Scheduling Jobs ----------------");
 
     //Crawler task will run everyday at 22:00,parse moives information
-    JobDetail job = newJob(ProcessJob.class).withIdentity("processJob", "group1").build();
+    JobDetail job = newJob(IProcessJob.class).withIdentity("processJob", "group1").build();
     //Excute at 12:00 everyday
     CronTrigger trigger = newTrigger().withIdentity("trigger1", "group1").withSchedule(cronSchedule("0 0 22 * * ?"))
             .build();
@@ -43,7 +44,7 @@ public class CronTriggerStart {
             + trigger.getCronExpression());
 
     // DB data download to Excel task will run everyday at 22:20
-    job = newJob(Db2ExcelJob.class).withIdentity("Db2ExcelJob", "group1").build();
+    job = newJob(IDb2ExcelJob.class).withIdentity("Db2ExcelJob", "group1").build();
     //Excute at 12:20 everyday
     trigger = newTrigger().withIdentity("trigger2", "group1").withSchedule(cronSchedule("0 20 22 * * ?")).build();
 
@@ -53,7 +54,7 @@ public class CronTriggerStart {
             + trigger.getCronExpression());
 
     // Everyday movies trend info will send an e-mail,at 22:30 everyday
-    job = newJob(SendMailJob.class).withIdentity("sendMailJob", "group1").build();
+    job = newJob(ISendMailJob.class).withIdentity("sendMailJob", "group1").build();
     // Excute at 12:30 everyday
     trigger = newTrigger().withIdentity("trigger3", "group1").withSchedule(cronSchedule("0 30 22 * * ?")).build();
 

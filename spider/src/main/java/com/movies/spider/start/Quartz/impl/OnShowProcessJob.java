@@ -1,14 +1,14 @@
-package com.movies.spider.start.Quartz;
+package com.movies.spider.start.Quartz.impl;
 
 import com.movies.spider.service.impl.*;
+import com.movies.spider.start.Quartz.IProcessJob;
 import com.movies.spider.start.StartOnShowSpider;
-import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class ProcessJob implements Job {
+public class OnShowProcessJob implements IProcessJob {
   @Override
   public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
     ApplicationContext context = new ClassPathXmlApplicationContext("onShowBeans.xml");
